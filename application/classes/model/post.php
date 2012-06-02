@@ -1,12 +1,12 @@
 <?php
 class Model_Post extends Model {
 	public function insert_post($title,
-	$slug,
-	$category,
-	$date,
-	$author,
-	$introduction,
-	$content){
+			$slug,
+			$category,
+			$date,
+			$author,
+			$introduction,
+			$content){
 		return $query = DB::insert('posts',
 				array('title',
 					'slug',
