@@ -17,7 +17,7 @@ class Model_Post extends Model {
 			return $query = DB::update('posts')->set(array('title' => $title, 'content' => $content, 'introduction' => $introduction))->where('id', '=', $id)->execute();
 		}
 
-    	public function get_post_list(){
+		public function get_post_list(){
 			return $query = DB::select()->from('posts')->order_by('id', 'DESC')->execute()->as_array();
 		}
 
