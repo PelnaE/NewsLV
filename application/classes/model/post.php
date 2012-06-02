@@ -43,9 +43,9 @@ class Model_Post extends Model {
 	}
 
 	public function update_post($title,
-								$content,
-								$introduction,
-								$id){
+						$content,
+						$introduction,
+						$id){
 		$query = DB::update('posts')
 			->set(array(
 				'title'=>$title,
