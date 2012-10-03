@@ -2,8 +2,8 @@
 
 class Controller_Home extends Controller_Template {
 
-	public function action_index()
-	{
+    public function action_index()
+    {
         $view = View::factory('home/list');
         $model_for_posts = Model::factory('post');
         $get_news = $model_for_posts->get_all_published_posts("jaunumi");
