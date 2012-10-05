@@ -1,15 +1,17 @@
 <?php defined('SYSPATH') or die('Hacking attemp!');
 
-class Controller_Dashboard_Posts extends Controller_Template {
-	public function action_list(){
-		$model_for_posts = Model::factory('post');
+class Controller_Dashboard_Posts extends Controller_Template
+{
+    public function action_list(){
+        $model_for_posts = Model::factory('post');
         $get_posts = $model_for_posts->get_post_list();
         $view = View::factory('dashboard/list');
         $view->posts = $get_posts;
         $this->template->content = $view->render();
-
 	}
-	public function action_post() {
+
+    public function action_post()
+    {
         $model_for_users = Model::factory('user');
         $session = Session::instance();
         $user_session = $session->get('user');
@@ -19,7 +21,6 @@ class Controller_Dashboard_Posts extends Controller_Template {
 
         if ($this->request->method() === Request::POST) {
             if (!Security::check($this->request->post('csrf_token'))) {
-
                 throw new HTTP_Exception_401("Bad token!");
             }
             $title = $this->request->post('title');
@@ -29,7 +30,14 @@ class Controller_Dashboard_Posts extends Controller_Template {
             $author = $this->request->post('author');
             $category = $this->request->post('category');
             $date = time();
-            if (empty($introduction) and empty($category) and empty($title) and empty($content) and empty($author) and empty($date)) {
+            if (
+                empty($introduction) and
+                empty($category) and
+                empty($title) and
+                empty($content) and
+                empty($author) and
+                empty($date)
+            ) {
                 throw new Exception('Please don`t make empty fields!');
             }
             $model_for_posts = Model::factory('post');
@@ -44,7 +52,9 @@ class Controller_Dashboard_Posts extends Controller_Template {
         }
         $this->template->content = $view->render();
     }
-    public function action_edit() {
+
+    public function action_edit()
+    {
         $post_id = $this->request->param('id');
         $view = View::factory('dashboard/edit');
         if (empty($post_id)) {
@@ -57,8 +67,7 @@ class Controller_Dashboard_Posts extends Controller_Template {
             throw new Exception('Not found!');
         }
         if ($this->request->method() === Request::POST) {
-             if (!Security::check($this->request->post('csrf_token'))) {
-
+            if (!Security::check($this->request->post('csrf_token'))) {
                 throw new HTTP_Exception_401("Bad token!");
             }
             $post_title = $this->request->post('title');
@@ -75,7 +84,9 @@ class Controller_Dashboard_Posts extends Controller_Template {
         $view->success = Session::instance()->get_once('Entry.success');
         $this->template->content = $view->render();
     }
-    public function action_delete() {
+
+    public function action_delete()
+    {
         $post_id = $this->request->param('id');
 
         if (!$post_id) {
@@ -83,7 +94,6 @@ class Controller_Dashboard_Posts extends Controller_Template {
         }
         $model_for_posts = Model::factory('post');
          if (!Security::check($this->request->param('id2'))) {
-
                 throw new HTTP_Exception_401("Bad token!");
             }
         $delete_post = $model_for_posts->delete_post($post_id);
@@ -92,5 +102,5 @@ class Controller_Dashboard_Posts extends Controller_Template {
         }
         $this->request->redirect('dashboard/posts');
     }
-
 }
+
