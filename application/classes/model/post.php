@@ -1,27 +1,11 @@
 <?php
-class Model_Post extends Model {
-	public function insert_post($title,
-					$slug,
-					$category,
-					$date,
-					$author,
-					$introduction,
-					$content){
-		return $query = DB::insert('posts',
-				array('title',
-					'slug',
-					'category',
-					'date',
-					'author',
-					'introduction',
-					'content'))
-			->values(array($title,
-					$slug,
-					$category,
-					$date,
-					$author,
-					$introduction,
-					$content))
+
+class Model_Post extends Model
+{
+    public function insert_post(array $data)
+    {
+		return $query = DB::insert('posts', array_keys($data))
+			->values(array_values($data))
 			->execute();
 	}
 

@@ -44,7 +44,16 @@ class Controller_Dashboard_Posts extends Controller_Template
             if(empty($slug)){
                 $slug = URL::title($title, '_');
             }
-            $insert_entry = $model_for_posts->insert_post($title,$slug,$category,$date,$author,$introduction,$content);
+            $data         = array(
+                'title'        => $title,
+                'slug'         => $slug,
+                'category'     => $category,
+                'date'         => $date,
+                'author'       => $author,
+                'introduction' => $introduction,
+                'content'      => $content,
+            );
+            $insert_entry = $model_for_posts->insert_post(array $data);
             if (!$insert_entry) {
                 throw new Exception('Check if you are connected to database!');
             }
