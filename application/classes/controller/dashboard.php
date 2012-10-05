@@ -1,11 +1,14 @@
 <?php defined('SYSPATH') or die('Hacking attemp!');
 
-class Controller_Dashboard extends Controller_Template {
-	public function action_home() {
+class Controller_Dashboard extends Controller_Template
+{
+    public function action_home()
+    {
         $this->template->content = View::factory('dashboard/home');
     }
 
-    public function action_sign_out() {
+    public function action_sign_out()
+    {
         $session = Session::instance();
         $user_session = $session->get('user');
         $user_cookie = Cookie::get('user');
@@ -19,7 +22,8 @@ class Controller_Dashboard extends Controller_Template {
         $this->request->redirect('dashboard');
     }
 
-    public function action_sign_in() {
+    public function action_sign_in()
+    {
         $post_nick = $this->request->post('nick');
         $post_password = $this->request->post('password');
         $post_cookie = $this->request->post('cookie');
@@ -36,5 +40,6 @@ class Controller_Dashboard extends Controller_Template {
         Cookie::set('user', $post_nick);
         }
         $this->request->redirect('dashboard');
-    }  
+    }
 }
+
